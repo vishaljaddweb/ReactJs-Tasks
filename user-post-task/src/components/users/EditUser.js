@@ -9,6 +9,7 @@ export class EditUser extends Component {
             isEditing: false,
             setName: "",
             setEmail: "",
+            remainingUserData: []
         }
     }
 
@@ -30,17 +31,17 @@ export class EditUser extends Component {
 
     loadUserData = async () => {
         const resp = await axios.get(`http://localhost:3005/users/${this.props.editUser.id}`);
-        // console.log(this.props.editUser);
-        // const allDataOfUser=[];
         this.setState({
             setName: resp.data.name,
-            setEmail: resp.data.email
+            setEmail: resp.data.email,
+            remainingUserData: resp.data
         })
+        console.log(this.state.remainingUserData);
     }
 
     editHandler = async (event) => {
         event.preventDefault();
-        await axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { name: this.state.setName, email: this.state.setEmail })
+        await axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { ...this.state.remainingUserData, name: this.state.setName, email: this.state.setEmail })
         this.props.onEditSuccess(event)
     }
 
@@ -59,8 +60,6 @@ export class EditUser extends Component {
                 </div>
                 <div>
                     <button type="button" onClick={this.props.onCancel}>Cancel</button>
-                    {/* <button type="submit" onClick={this.editHandler}>Update</button> */}
-                    {/* <button type="submit" onClick={this.props.onUpdate}>Update</button> */}
                     <button type="submit">Update</button>
                 </div>
             </form>

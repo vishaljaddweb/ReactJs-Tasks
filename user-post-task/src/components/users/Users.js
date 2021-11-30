@@ -70,15 +70,10 @@ class Users extends Component {
     }
 
     editHandler = async (response) => {
-        // const userData = {
-        //     ...response
-        // }
-        // console.log(userData);
         this.setState({
             isEditing: true,
             editUserData: response
         })
-        // this.props.onEditData(userData);
     }
 
     render() {

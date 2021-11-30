@@ -60,7 +60,8 @@ function Posts() {
 
     return (
         <div>
-            hello       
+            hello 
+            {console.log(postsItems)}      
         </div>
     )
 }
