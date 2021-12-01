@@ -36,31 +36,36 @@ export class AddDataForm extends Component {
             usersItems: resp.data
         })
     }
+
     submitHandler = (event) => {
         event.preventDefault();
-        const userData = {
-            name: this.state.setName,
-            userName:this.state.setUserName,
-            email: this.state.setEmail,
-            address:{
-                street:this.state.setAddress.setStreet,
-                suite:this.state.setAddress.setSuite,
-                city:this.state.setAddress.setCity,
-                zipcode:this.state.setAddress.setZipCode,
-                geo:{
-                    lat:this.state.setAddress.geo.setLat,
-                    lng:this.state.setAddress.geo.setLng
+        if (this.state.setName && this.state.setUserName && this.state.setEmail && this.state.setAddress.setStreet && this.state.setAddress.setSuite && this.state.setAddress.setCity && this.state.setAddress.setZipCode && this.state.setAddress.geo.setLat && this.state.setAddress.geo.setLng && this.state.setPhone && this.state.setWebsite && this.state.setCompany.setCompName && this.state.setCompany.setCatchPhrase && this.state.setCompany.setBS) {
+            const userData = {
+                name: this.state.setName,
+                userName: this.state.setUserName,
+                email: this.state.setEmail,
+                address: {
+                    street: this.state.setAddress.setStreet,
+                    suite: this.state.setAddress.setSuite,
+                    city: this.state.setAddress.setCity,
+                    zipcode: this.state.setAddress.setZipCode,
+                    geo: {
+                        lat: this.state.setAddress.geo.setLat,
+                        lng: this.state.setAddress.geo.setLng
+                    }
+                },
+                phone: this.state.setPhone,
+                website: this.state.setWebsite,
+                company: {
+                    name: this.state.setCompany.setCompName,
+                    catchPhrase: this.state.setCompany.setCatchPhrase,
+                    bs: this.state.setCompany.setBS
                 }
-            },
-            phone:this.state.setPhone,
-            website:this.state.setWebsite,
-            company:{
-                name:this.state.setCompany.setCompName,
-                catchPhrase:this.state.setCompany.setCatchPhrase,
-                bs:this.state.setCompany.setBS
             }
+            this.props.onSaveUserData(userData);
+        } else {
+            alert("Please fill data in all fields");
         }
-        this.props.onSaveUserData(userData);
     }
 
     render() {
@@ -76,6 +81,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.nameError}</div>
                         <div>
                             <label>UserName</label>
                             <input type="text" value={this.state.setUserName} onChange={(e) => {
@@ -84,6 +90,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.userNameError}</div>
                         <div>
                             <label>Email</label>
                             <input type="text" value={this.state.setEmail} onChange={(e) => {
@@ -92,6 +99,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.emailError}</div>
                     </div>
                     <br />
                     <br />
@@ -107,6 +115,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.streetError}</div>
                         <div>
                             <label>Suite</label>
                             <input type="text" value={this.state.setAddress.setSuite} onChange={(e) => {
@@ -117,6 +126,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.suitError}</div>
                         <div>
                             <label>City</label>
                             <input type="text" value={this.state.setAddress.setCity} onChange={(e) => {
@@ -127,6 +137,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.cityError}</div>
                         <div>
                             <label>ZipCode</label>
                             <input type="text" value={this.state.setAddress.setZipCode} onChange={(e) => {
@@ -137,6 +148,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.zipCodeError}</div>
                     </div>
                     <div>GeoLocation In Address :</div>
                     <div style={{ display: "flex" }}>
@@ -150,6 +162,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.latError}</div>
                         <div>
                             <label>Lng</label>
                             <input type="text" value={this.state.setAddress.geo.setLng} onChange={(e) => {
@@ -160,6 +173,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.lngError}</div>
                     </div>
                     <br />
                     <br />
@@ -172,6 +186,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.phoneError}</div>
                         <div>
                             <label>Website</label>
                             <input type="text" value={this.state.setWebsite} onChange={(e) => {
@@ -180,6 +195,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.websiteError}</div>
                     </div>
                     <br />
                     <br />
@@ -195,6 +211,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.compNameError}</div>
                         <div>
                             <label>CatchPhrase</label>
                             <input type="text" value={this.state.setCompany.setCatchPhrase} onChange={(e) => {
@@ -205,6 +222,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.catchPhraseError}</div>
                         <div>
                             <label>BS</label>
                             <input type="text" value={this.state.setCompany.setBS} onChange={(e) => {
@@ -215,6 +233,7 @@ export class AddDataForm extends Component {
                                 })
                             }} />
                         </div>
+                        <div style={{ color: "red" }}>{this.state.bsError}</div>
                     </div>
                     <br />
                     <br />

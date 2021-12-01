@@ -36,13 +36,12 @@ export class EditUser extends Component {
             setEmail: resp.data.email,
             remainingUserData: resp.data
         })
-        console.log(this.state.remainingUserData);
     }
 
-    editHandler = async (event) => {
+    editHandler = (event) => {
         event.preventDefault();
-        await axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { ...this.state.remainingUserData, name: this.state.setName, email: this.state.setEmail })
-        this.props.onEditSuccess(event)
+        axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { ...this.state.remainingUserData, name: this.state.setName, email: this.state.setEmail })
+        this.props.onEditSuccess(event);
     }
 
     render() {

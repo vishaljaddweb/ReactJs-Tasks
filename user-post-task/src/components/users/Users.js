@@ -26,19 +26,19 @@ class Users extends Component {
         })
     }
 
-
-
-    deleteHandler = async (id) => {
-        await axios.delete(`http://localhost:3005/users/${id}`);
-        this.getAllUsers();
+    deleteHandler = (id) => {
+        axios.delete(`http://localhost:3005/users/${id}`).then(() => {
+            this.getAllUsers();
+        });
     }
 
-    saveUserDataHandler = async (enteredUserData) => {
+    saveUserDataHandler = (enteredUserData) => {
         const userData = {
             ...enteredUserData
         }
-        await axios.post('http://localhost:3005/users', userData);
-        this.getAllUsers();
+        axios.post('http://localhost:3005/users', userData).then(() => {
+            this.getAllUsers();
+        });
         this.setState({
             isAddData: false
         })
@@ -90,8 +90,8 @@ class Users extends Component {
                     {this.state.usersItems.map((item) => {
                         return (
                             <li key={item.id} style={{ listStyle: "none", display: "flex" }}>
-                                <div>{item.name}</div>
-                                <div>{item.email}</div>
+                                <div style={{marginRight:"25px"}}>Name : {item.name}</div>
+                                <div>Email : {item.email}</div>
                                 <div><button onClick={() => this.editHandler(item)}>Edit</button></div>
                                 <div><button onClick={() => this.deleteHandler(item.id)} >Delete</button></div>
                             </li>
