@@ -40,8 +40,9 @@ export class EditUser extends Component {
 
     editHandler = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { ...this.state.remainingUserData, name: this.state.setName, email: this.state.setEmail })
-        this.props.onEditSuccess(event);
+        axios.put(`http://localhost:3005/users/${this.props.editUser.id}`, { ...this.state.remainingUserData, name: this.state.setName, email: this.state.setEmail }).then(()=>{
+            this.props.onEditSuccess(event);
+        })
     }
 
     render() {

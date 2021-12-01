@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 export class AddDataForm extends Component {
 
@@ -30,12 +30,12 @@ export class AddDataForm extends Component {
         }
     }
 
-    getAllUsers = async () => {
-        const resp = await axios.get('http://localhost:3005/users');
-        this.setState({
-            usersItems: resp.data
-        })
-    }
+    // getAllUsers = async () => {
+    //     const resp = await axios.get('http://localhost:3005/users');
+    //     this.setState({
+    //         usersItems: resp.data
+    //     })
+    // }
 
     submitHandler = (event) => {
         event.preventDefault();
@@ -64,7 +64,7 @@ export class AddDataForm extends Component {
             }
             this.props.onSaveUserData(userData);
         } else {
-            alert("Please fill data in all fields");
+            alert("Please fill the data in all fields");
         }
     }
 
