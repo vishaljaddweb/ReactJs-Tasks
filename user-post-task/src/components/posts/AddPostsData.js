@@ -16,7 +16,7 @@ function AddPostsData(props) {
             }
             props.onSavePostsData(postsData);
         } else {
-            alert("poora data daal madarchod");
+            alert("please fill data in all fields");
         }
     }
 
