@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import 'antd/dist/antd.css';
+// import { Form, Input, Button} from 'antd';
 
 export class AddDataForm extends Component {
 
@@ -29,13 +30,6 @@ export class AddDataForm extends Component {
             }
         }
     }
-
-    // getAllUsers = async () => {
-    //     const resp = await axios.get('http://localhost:3005/users');
-    //     this.setState({
-    //         usersItems: resp.data
-    //     })
-    // }
 
     submitHandler = (event) => {
         event.preventDefault();
