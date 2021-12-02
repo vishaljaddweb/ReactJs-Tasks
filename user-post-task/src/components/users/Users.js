@@ -4,6 +4,7 @@ import AddDataForm from './AddDataForm';
 import EditUser from './EditUser';
 import { Table, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
+// import debounce from "lodash.debounce";
 const { Search } = Input;
 
 class Users extends Component {
@@ -14,7 +15,10 @@ class Users extends Component {
             usersItems: [],
             isAddData: false,
             isEditing: false,
-            editUserData: {}
+            editUserData: {},
+            setPage: 1,
+            setPageSize: 6,
+            setQuery: ""
         };
     }
 
@@ -83,94 +87,129 @@ class Users extends Component {
         console.log(value)
     }
 
+    // onSetQuery=(event)=>{
+    //     this.setState({
+    //         setQuery: event.target.value
+    //     })        
+    // }
+
+    // searchData=(userItems,setQuery)=>{
+    //     userItems.filter((value) => {
+    //         return value.name.toLowerCase().includes(setQuery) || value.email.toLowerCase().includes(setQuery) || value.username.toLowerCase().includes(setQuery);;
+    //     })
+    // }
+    // filteredItems=this.searchData(this.state.usersItems,this.state.setQuery);
+    // debouncedOnChange = debounce(this.onSetQuery, 1000);
+    searchHandleChange = (event) => {
+        this.setState({
+            setQuery: event.target.value
+        })
+        var searchData = this.state.usersItems.filter((value) => {
+            return value.name.toLowerCase().includes(this.state.setQuery) || value.email.toLowerCase().includes(this.state.setQuery) || value.username.toLowerCase().includes(this.state.setQuery);;
+        })
+        console.log(searchData)
+    }
+    // searchHandleChange=()=>{
+    //     var nn= debounce(this.onSetQuery, 1000);
+    //     console.log(nn);
+    // }
+
     columns = [
         {
+            key: '1',
+            title: 'ID',
+            dataIndex: 'id',
+        },
+        {
+            key: '2',
             title: 'Name',
             dataIndex: 'name',
-            key: 'id',
-            sorter:(a,b)=>a.name - b.name
+            // sorter: (a, b) => a.name - b.name
         },
         {
+            key: '3',
             title: 'UserName',
             dataIndex: 'username',
-            key: 'id',
         },
         {
+            key: '4',
             title: 'Email',
             dataIndex: 'email',
-            key: 'id',
         },
         {
+            key: '5',
             title: 'Street',
             dataIndex: ['address', 'street'],
-            key: 'id',
         },
         {
+            key: '6',
             title: 'Suite',
             dataIndex: ['address', 'suite'],
-            key: 'id',
         },
         {
+            key: '7',
             title: 'City',
             dataIndex: ['address', 'city'],
-            key: 'id',
         },
         {
+            key: '8',
             title: 'ZipCode',
             dataIndex: ['address', 'zipcode'],
-            key: 'id',
         },
         {
+            key: '9',
             title: 'Latitude',
             dataIndex: ['address', 'geo', 'lat'],
-            key: 'id'
         },
         {
+            key: '10',
             title: 'Longitude',
             dataIndex: ['address', 'geo', 'lng'],
-            key: 'id',
         },
         {
+            key: '11',
             title: 'Phone_No',
             dataIndex: 'phone',
-            key: 'id',
 
         },
         {
+            key: '12',
             title: 'Website',
             dataIndex: 'website',
-            key: 'id',
 
         },
         {
+            key: '13',
             title: 'Company_Name',
             dataIndex: ['company', 'name'],
-            key: 'id',
 
         },
         {
+            key: '14',
             title: 'Catch_Phrase',
             dataIndex: ['company', 'catchPhrase'],
-            key: 'id'
         },
         {
+            key: '15',
             title: 'BS',
             dataIndex: ['company', 'bs'],
-            key: 'id',
         },
         {
-            key:'id',
+            key: '16',
             render: (item) => (
                 <>
-                    <Button type='primary' onClick={()=>this.editHandler(item)} >Edit</Button>
+                    <Button type='primary' onClick={() => this.editHandler(item)} >Edit</Button>
                 </>)
         },
         {
-            key:'id',
+            key: '17',
             render: (item) => (
                 <>
-                    <Button type='danger' className='danger' onClick={()=>this.deleteHandler(item.id)} >Delete</Button>
+                    <Button type='danger' className='danger' onClick={() => this.deleteHandler(item.id)} >Delete</Button>
                 </>)
+        },
+        {
+
         }
 
     ];
@@ -187,11 +226,29 @@ class Users extends Component {
                     {this.state.isEditing ? <EditUser editUser={this.state.editUserData} onCancel={this.stopEditData} onEditSuccess={this.updateDataHandler} /> : null}
                 </div>
                 <div className="container">
-                    <Search placeholder="input search text" onSearch={this.onSearch} enterButton />
+                    <Search onChange={this.searchHandleChange}
+                        value={this.state.setQuery}
+                        placeholder="input search text"
+                        onSearch={this.onSearch}
+                    />
                 </div>
                 <br />
                 <header className="App-header">
-                    <Table dataSource={this.state.usersItems} columns={this.columns} />
+                    <Table
+                        dataSource={this.state.usersItems}
+                        columns={this.columns}
+                        pagination={{
+                            current: this.state.setPage,
+                            pageSize: this.state.setPageSize,
+                            onChange: (page, pageSize) => {
+                                this.setState({
+                                    setPage: page,
+                                    setPageSize: pageSize
+                                })
+                            }
+                        }}
+
+                    />
                 </header>
                 {/* <ul  >
                     {this.state.usersItems.map((item) => {
