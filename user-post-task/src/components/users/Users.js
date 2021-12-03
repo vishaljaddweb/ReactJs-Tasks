@@ -110,12 +110,13 @@ class Users extends Component {
     //         })
     //         console.log("searchData",searchData);
     //         // this.searchItems(searchData);
-            // this.setState({
-            //     usersItems: searchData
-            // })
+    // this.setState({
+    //     usersItems: searchData
+    // })
     //     }
     // }
 
+    //Importanat
     searchHandleChange = (event) => {
         this.setState({
             setQuery: event.target.value
@@ -128,6 +129,14 @@ class Users extends Component {
             usersItems: searchData
         })
     }
+
+
+    // searchedDataItems = (rows) => {
+    //     return rows.filter((row) => {
+    //         row.name.toLowerCase().indexOf(this.state.setQuery)
+    //     })
+    // }
+
 
     // searchItems = (searchData) => {
     //     if (searchData // 👈 null and undefined check
@@ -153,8 +162,8 @@ class Users extends Component {
             title: 'Name',
             dataIndex: 'name',
             sorter: (a, b) => a.name.length - b.name.length,
-            onFilter: (item) => {
-                return item.name.toLowerCase().includes(this.state.setQuery)
+            onFilter: () => {
+                this.filteredData();
             }
         },
         {
@@ -261,6 +270,7 @@ class Users extends Component {
                 <div className="container">
                     <Search
                         onChange={this.searchHandleChange}
+                        // onChange={(e) => this.setState({ setQuery: e.target.value })}
                         // onChange={(e)=>{this.searchHandleChange(e.target.value)}}
                         value={this.state.setQuery}
                         placeholder="input search text"
@@ -271,6 +281,7 @@ class Users extends Component {
                 <header className="App-header">
                     <Table
                         dataSource={this.state.usersItems}
+                        // dataSource={this.searchedDataItems(this.state.usersItems)}
                         columns={this.columns}
                         pagination={{
                             current: this.state.setPage,
